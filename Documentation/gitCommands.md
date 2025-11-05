@@ -11,4 +11,5 @@
 - `git add <file>` - добавить файл в отслеживания Гитом, чтобы потом его закоммитить
 - `git rm -f --cached .<file>` - убрать файл из отслеживания Гитом
 - `git commit -m <comment>` - сделать коммит с комментарием
+- `git push -u origin <branch name>` - используется при первичному пуше в ветку
 - `git remote add origin git@github.com:agzamovQA/qa_solution.git` - Задать обращение гита к конкретному удаленному репозиторию
