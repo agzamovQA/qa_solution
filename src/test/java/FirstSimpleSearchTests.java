@@ -6,7 +6,13 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class FirstSimpleSearchTests {
     @Test
-    void firstSuccessfulSearchTest() {
+    // Аннотация для запуска теста. Сама метка идет вместе с JUnit5
+
+    void firstSuccessfulSearchTest()
+    // firstSuccessfulSearchTest - название метода.
+    // void - магическое слово. Оно просто должно быть :3
+    {
+        // Всё, что в скобочках {} - это метод.
         open ("https://ya.ru/");
         $("[id=text]").setValue("QA GURU").pressEnter();
         $("[class=content]").shouldHave(text("qa.guru"));
