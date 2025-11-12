@@ -1,17 +1,21 @@
+// Указание языка разработки тестов
 plugins {
     id 'java-library'
 }
 
+// Репозитории откуда можно выкачивать нужные библиотеки, которые указали в Dependencies
 repositories {
     mavenCentral()
 }
 
+// Указываем, какие библиотеки хотим использовать
 dependencies {
     testImplementation (
             "com.codeborne:selenide:6.19.1",
             "org.junit.jupiter:junit-jupiter:5.9.3")
 }
 
+// Указываем, какую кодировку выбрать
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
