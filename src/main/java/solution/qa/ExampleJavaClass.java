@@ -18,6 +18,7 @@ public class ExampleJavaClass {
         short aShort = 0; // Занимаемое место в памяти 16bit // Диапазон хранимых значений: -32768 + 32768 // (-2^16) .. (2^16 -1)
         int aInt = 0; // Занимаемое место в памяти 32bit // Диапазон хранимых значений: -2 147 483 648 до 2 147 483 647 // (-2^32) .. (2^32 -1)
         long aLong = 0; // Занимаемое место в памяти 64bit // Диапазон хранимых значений: -9 223 372 036 854 775 808 до 9 223 372 036 854 775 807 // (-2^32) .. (2^32 -1)
+        Integer intWrapper = 0; // Обертка над обычным int. Является объектом, а не примитивом
 
         //P.S. Чаще всего используется тип int, так как целочисленный литерал изначально идет с типом int. Ему можно добавить тип Long, но типы Byte/Short не добавить.
 
@@ -27,9 +28,10 @@ public class ExampleJavaClass {
 
         //Символьный
         char aChar = 'a';
-
+        Character charWrapper = 'a'; // Обертка над обычным char. Является объектом, а не примитивом
         //Логический
         boolean aBoolean = true;
+        Boolean booleanWrapper = true; // Обертка над обычным boolean. Является объектом, а не примитивом
 
         //Строка (и бесконечность других объектных/ссылочных типов данных)
         String stringExample = "\n Памагити";
@@ -80,6 +82,16 @@ public class ExampleJavaClass {
         String childName  = sex == 'm'
                 ? "Valentin"
                 : "Valentina";
-        //Остановился на if / else (01:11:18)
+        //Управляющая конструкция if / else
+        if (sex == 'm') {
+            childName = "Valentin";
+        } else {
+            childName = "Valentina";
+        }
+
+        //Ключевое слово new - создано для того, чтобы создавать объекты (В Java почти всё является объектом)
+        String name = new String("Agzamurai");
+        String nameNotNew = ("Agzamurai"); // Для стринга существует исключение. Не обязательно прописывать new
+
     }
 }
