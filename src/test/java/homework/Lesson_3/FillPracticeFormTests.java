@@ -1,21 +1,13 @@
 package homework.Lesson_3;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
+import exampleTest.TestBase;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class FillPracticeFormTests {
-
-    @BeforeAll
-    static void setUp() {
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-    }
+public class FillPracticeFormTests extends TestBase {
 
     @Test
     void fillAllFormTest()
