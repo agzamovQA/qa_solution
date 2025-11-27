@@ -4,13 +4,14 @@ import exampleTest.TestBase;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class FillPracticeFormTests extends TestBase {
 
     @Test
-    void fillAllFormTest()
+    void fillPositiveAllFormTest()
     {
         open ("/automation-practice-form");
 
@@ -76,5 +77,70 @@ public class FillPracticeFormTests extends TestBase {
         $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("Jhonny_Silverhand.jpg"));
         $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Night City, District Kabuki, Home 20, apart 77"));
         $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Noida"));
+    }
+
+    @Test
+    void fillRequiredFormTest()
+    {
+        open ("/automation-practice-form");
+
+        //Добавлен блокировщик реклам
+        executeJavaScript("$('footer').remove();");
+        executeJavaScript("$('#fixedban').remove();");
+
+        $("#firstName").setValue("Johny");
+        $("#lastName").setValue("Silverhand");
+
+        //Поиск гендера "Male" в конкретном элементе (Best Practice)
+        $("#genterWrapper").$(byText("Male")).click();
+
+        //Заполняем номер телефона
+        $("#userNumber").setValue("0123456789");
+
+        //Выбираем хобби
+        $("#hobbiesWrapper").$(byText("Music")).click();
+
+
+        //Подтверждаем регистрицию
+        $("#submit").click();
+
+        //Проверяем ответ в таблице
+        //Ищем заголовок таблицы, чтобы убедится в открытии
+        $(".modal-content").shouldHave(text("Thanks for submitting the form"));
+
+        //Проверяем соответсвие ключ-значение
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Johny Silverhand"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("0123456789"));
+    }
+
+    @Test
+    void fillNegativeRequiredFormTest()
+    {
+        open ("/automation-practice-form");
+
+        //Добавлен блокировщик реклам
+        executeJavaScript("$('footer').remove();");
+        executeJavaScript("$('#fixedban').remove();");
+
+        $("#firstName").setValue("Johny");
+        $("#lastName").setValue("Silverhand");
+
+        //Поиск гендера "Male" в конкретном элементе (Best Practice)
+        $("#genterWrapper").$(byText("Male")).click();
+
+        //Заполняем номер телефона
+        $("#userNumber").setValue("");
+
+        //Выбираем хобби
+        $("#hobbiesWrapper").$(byText("Music")).click();
+
+
+        //Подтверждаем регистрицию
+        $("#submit").click();
+
+        //Проверяем ответ в таблице
+        //Ищем модальное окно и убеждаемся, что данный элемент не отображается
+        $(".modal-content").shouldNot(visible);
     }
 }
