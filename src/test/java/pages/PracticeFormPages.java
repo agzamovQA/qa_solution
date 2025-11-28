@@ -17,8 +17,12 @@ public class PracticeFormPages {
             userNumberImput = $("#userNumber"),
             dateOfBirthInput = $("#dateOfBirthInput"),
             subjectChoice = $("#subjectsInput"),
-            userHobbiesChoice = $("#hobbiesWrapper");
-
+            userHobbiesChoice = $("#hobbiesWrapper"),
+            adressInput = $("#currentAddress"),
+            userPhotoDownloader = $("#uploadPicture"),
+            userState = $("#state"),
+            userCity = $("#city"),
+            submit = $("#submit");
 
     //Добавляем метод вызова открытия страницы
     public PracticeFormPages openPage () {
@@ -80,6 +84,33 @@ public class PracticeFormPages {
 
     public PracticeFormPages setUserHobbies (String value) {
         userHobbiesChoice.$(byText(value)).click();
+
+        return this;
+    }
+
+    public PracticeFormPages setUserAdress (String value) {
+        adressInput.setValue(value);
+
+        return this;
+    }
+
+    public PracticeFormPages uploadUserPhoto (String value) {
+        userPhotoDownloader.uploadFromClasspath(value);
+
+        return this;
+    }
+
+    public PracticeFormPages selectStateAndCity (String state, String city) {
+        userState.click();
+        userState.$(byText(state)).click();
+        userCity.click();
+        userCity.$(byText(city)).click();
+
+        return this;
+    }
+
+    public PracticeFormPages submitForm () {
+        submit.click();
 
         return this;
     }

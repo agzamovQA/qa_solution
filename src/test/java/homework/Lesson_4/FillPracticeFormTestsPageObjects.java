@@ -20,6 +20,9 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
     String [] userBirthDate = new String [] {"07", "August", "1996"};
     String userSubject = "English";
     String userHobbies = "Music";
+    String userAdress = "Night City, District Kabuki, Home 20, apart 77";
+    String userPhoto = "Jhonny_Silverhand.jpg";
+    String [] userStateAndCity = new String [] {"NCR", "Noida"};
 
     @Test
     void fillPositiveAllFormTest()
@@ -33,24 +36,11 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
                 .setUserNumber(userNumber)
                 .setBirthDate(userBirthDate[0], userBirthDate[1], userBirthDate[2])
                 .setSubject(userSubject)
-                .setUserHobbies(userHobbies);
-
-        //Заполняем адрес проживания
-        $("#currentAddress").setValue("Night City, District Kabuki, Home 20, apart 77");
-
-        //Загружаем фотографию
-        $("#uploadPicture").uploadFromClasspath("Jhonny_Silverhand.jpg");
-
-        //Выбираем штат
-        $("#state").click();
-        $("#state").$(byText("NCR")).click();
-
-        //Выбираем город
-        $("#city").click();
-        $("#city").$(byText("Noida")).click();
-
-        //Подтверждаем регистрицию
-        $("#submit").click();
+                .setUserHobbies(userHobbies)
+                .setUserAdress(userAdress)
+                .uploadUserPhoto(userPhoto)
+                .selectStateAndCity(userStateAndCity[0],userStateAndCity[1])
+                .submitForm();
 
         //Проверяем ответ в таблице
         //Ищем заголовок таблицы, чтобы убедится в открытии
