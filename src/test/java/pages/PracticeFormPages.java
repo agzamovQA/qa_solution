@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponents;
+import pages.components.RegistrationResultModalComponents;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -9,7 +10,10 @@ import static com.codeborne.selenide.Selenide.*;
 public class PracticeFormPages {
     //Добавляем календарь, который вынесли в отдельный компонент
     CalendarComponents calendarComponents = new CalendarComponents();
-    private SelenideElement
+    RegistrationResultModalComponents registrationResultModalComponents = new RegistrationResultModalComponents();
+
+    //Private final SelenideElement т.к. используются только в одном классе и не подлежат изменениям
+    private final SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
@@ -111,6 +115,24 @@ public class PracticeFormPages {
 
     public PracticeFormPages submitForm () {
         submit.click();
+
+        return this;
+    }
+
+    public PracticeFormPages verifyOpenedTable () {
+        registrationResultModalComponents.verifyOpenedTable();
+
+        return this;
+    }
+
+    public PracticeFormPages verifyContentInTable (String key, String value) {
+        registrationResultModalComponents.verifyContentInTable(key, value);
+
+        return this;
+    }
+
+    public PracticeFormPages verifyResultNegativeOpenedTable () {
+        registrationResultModalComponents.verifyNegativeOpenedTable();
 
         return this;
     }
