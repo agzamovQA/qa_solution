@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pages.PracticeFormPages;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -53,5 +54,38 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
                 .verifyContentInTable("Picture", userPhoto)
                 .verifyContentInTable("Address", userAdress)
                 .verifyContentInTable("State and City", userStateAndCity[0] + " " + userStateAndCity[1]);
+    }
+
+    @Test
+    void fillRequiredFormTest()
+    {
+        practiceFormPages.openPage()
+                .removeAds()
+                .setFirstName(userName)
+                .setLastName(lastName)
+                .setUserGender(userGender)
+                .setUserNumber(userNumber)
+                .submitForm();
+
+        practiceFormPages.verifyOpenedTable()
+                .verifyContentInTable("Student Name", userName + " " + lastName)
+                .verifyContentInTable("Gender", userGender)
+                .verifyContentInTable("Mobile", userNumber);
+    }
+
+    @Test
+    void fillNegativeRequiredFormTest()
+    {
+        {
+            practiceFormPages.openPage()
+                    .removeAds()
+                    .setFirstName(userName)
+                    .setLastName(lastName)
+                    .setUserGender(userGender)
+                    .setUserNumber("")
+                    .submitForm();
+
+            practiceFormPages.verifyResultNegativeOpenedTable();
+        }
     }
 }
