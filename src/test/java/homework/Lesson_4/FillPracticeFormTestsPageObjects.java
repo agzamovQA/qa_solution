@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pages.PracticeFormPages;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -42,20 +43,49 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
                 .selectStateAndCity(userStateAndCity[0],userStateAndCity[1])
                 .submitForm();
 
-        //Проверяем ответ в таблице
-        //Ищем заголовок таблицы, чтобы убедится в открытии
-        $(".modal-content").shouldHave(text("Thanks for submitting the form"));
+        practiceFormPages.verifyOpenedTable()
+                .verifyContentInTable("Student Name", userName + " " + lastName)
+                .verifyContentInTable("Student Email", userEmail)
+                .verifyContentInTable("Gender", userGender)
+                .verifyContentInTable("Mobile", userNumber)
+                .verifyContentInTable("Date of Birth", userBirthDate[0] + " " + userBirthDate[1] + "," + userBirthDate[2])
+                .verifyContentInTable("Subjects", userSubject)
+                .verifyContentInTable("Hobbies", userHobbies)
+                .verifyContentInTable("Picture", userPhoto)
+                .verifyContentInTable("Address", userAdress)
+                .verifyContentInTable("State and City", userStateAndCity[0] + " " + userStateAndCity[1]);
+    }
 
-        //Проверяем соответсвие ключ-значение
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Johny Silverhand"));
-        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("general-kazadov@ya.ru"));
-        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
-        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("0123456789"));
-        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("07 August,1996"));
-        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("English"));
-        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Music"));
-        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("Jhonny_Silverhand.jpg"));
-        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Night City, District Kabuki, Home 20, apart 77"));
-        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Noida"));
+    @Test
+    void fillRequiredFormTest()
+    {
+        practiceFormPages.openPage()
+                .removeAds()
+                .setFirstName(userName)
+                .setLastName(lastName)
+                .setUserGender(userGender)
+                .setUserNumber(userNumber)
+                .submitForm();
+
+        practiceFormPages.verifyOpenedTable()
+                .verifyContentInTable("Student Name", userName + " " + lastName)
+                .verifyContentInTable("Gender", userGender)
+                .verifyContentInTable("Mobile", userNumber);
+    }
+
+    @Test
+    void fillNegativeRequiredFormTest()
+    {
+        {
+            practiceFormPages.openPage()
+                    .removeAds()
+                    .setFirstName(userName)
+                    .setLastName(lastName)
+                    .setUserGender(userGender)
+                    .setUserNumber("")
+                    .submitForm();
+
+            practiceFormPages.verifyResultNegativeOpenedTable();
+        }
     }
 }
