@@ -4,11 +4,6 @@ import exampleTest.TestBase;
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPages;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-
 public class FillPracticeFormTestsPageObjects extends TestBase {
     //Добавляем PageObject к нашим тестам
     PracticeFormPages practiceFormPages = new PracticeFormPages();
