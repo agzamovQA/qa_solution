@@ -104,9 +104,14 @@ public class PracticeFormPages {
         return this;
     }
 
-    public PracticeFormPages selectStateAndCity (String state, String city) {
+    public PracticeFormPages selectState (String state) {
         userState.click();
         userState.$(byText(state)).click();
+
+        return this;
+    }
+
+    public PracticeFormPages selectCity (String city) {
         userCity.click();
         userCity.$(byText(city)).click();
 
