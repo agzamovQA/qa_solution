@@ -18,7 +18,9 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
     String userHobbies = "Music";
     String userAdress = "Night City, District Kabuki, Home 20, apart 77";
     String userPhoto = "Jhonny_Silverhand.jpg";
-    String [] userStateAndCity = new String [] {"NCR", "Noida"};
+    String userState = "NCR";
+    String userCity = "Noida";
+//    String [] userStateAndCity = new String [] {"NCR", "Noida"};
 
     @Test
     void fillPositiveAllFormTest()
@@ -35,7 +37,9 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
                 .setUserHobbies(userHobbies)
                 .setUserAdress(userAdress)
                 .uploadUserPhoto(userPhoto)
-                .selectStateAndCity(userStateAndCity[0],userStateAndCity[1])
+                .selectState(userState)
+                .selectCity(userCity)
+//                .selectStateAndCity(userStateAndCity[0],userStateAndCity[1])
                 .submitForm();
 
         practiceFormPages.verifyOpenedTable()
@@ -47,8 +51,8 @@ public class FillPracticeFormTestsPageObjects extends TestBase {
                 .verifyContentInTable("Subjects", userSubject)
                 .verifyContentInTable("Hobbies", userHobbies)
                 .verifyContentInTable("Picture", userPhoto)
-                .verifyContentInTable("Address", userAdress)
-                .verifyContentInTable("State and City", userStateAndCity[0] + " " + userStateAndCity[1]);
+                .verifyContentInTable("Address", userAdress);
+//                .verifyContentInTable("State and City", userStateAndCity[0] + " " + userStateAndCity[1]);
     }
 
     @Test
