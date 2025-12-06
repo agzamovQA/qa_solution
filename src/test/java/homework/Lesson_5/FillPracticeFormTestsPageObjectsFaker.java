@@ -2,14 +2,17 @@ package homework.Lesson_5;
 
 import data.TestData;
 import exampleTest.TestBase;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPages;
 
+@DisplayName("Тесты на проверку форму регистрации demoqa")
 public class FillPracticeFormTestsPageObjectsFaker extends TestBase {
     PracticeFormPages practiceFormPages = new PracticeFormPages();
     TestData testData = new TestData();
 
     @Test
+    @DisplayName("Заполнение всех полей в форме регистрации")
     void fillPositiveAllFormTest()
     {
         practiceFormPages.openPage()
@@ -42,6 +45,7 @@ public class FillPracticeFormTestsPageObjectsFaker extends TestBase {
     }
 
     @Test
+    @DisplayName("Заполнение только обязательных полей в форме регистрации")
     void fillRequiredFormTest()
     {
         practiceFormPages.openPage()
@@ -59,6 +63,7 @@ public class FillPracticeFormTestsPageObjectsFaker extends TestBase {
     }
 
     @Test
+    @DisplayName("Заполнение не всех обязательных полей")
     void fillNegativeRequiredFormTest()
     {
         {
