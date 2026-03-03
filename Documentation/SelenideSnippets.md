@@ -192,4 +192,3 @@ WebDriverRunner.getWebDriver().manage().addCookie(cookie)`
     $("#file-upload").uploadFromClasspath("readme.txt");
     // don't forget to submit!
     $("uploadButton").click();
-
