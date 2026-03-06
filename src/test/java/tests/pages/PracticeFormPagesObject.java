@@ -1,24 +1,24 @@
-package pages;
+package tests.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.CalendarComponents;
-import pages.components.RegistrationResultModalComponents;
+import tests.pages.components.CalendarComponents;
+import tests.pages.components.RegistrationResultModalComponents;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormPages {
-    //Добавляем календарь, который вынесли в отдельный компонент
+public class PracticeFormPagesObject {
     CalendarComponents calendarComponents = new CalendarComponents();
     RegistrationResultModalComponents registrationResultModalComponents = new RegistrationResultModalComponents();
 
-    //Private final SelenideElement т.к. используются только в одном классе и не подлежат изменениям
+    //Elements
     private final SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
             userGenderChoice = $("#genterWrapper"),
-            userNumberImput = $("#userNumber"),
+            userNumberInput = $("#userNumber"),
             dateOfBirthInput = $("#dateOfBirthInput"),
             subjectChoice = $("#subjectsInput"),
             userHobbiesChoice = $("#hobbiesWrapper"),
@@ -28,115 +28,119 @@ public class PracticeFormPages {
             userCity = $("#city"),
             submit = $("#submit");
 
-    //Добавляем метод вызова открытия страницы
-    public PracticeFormPages openPage () {
-        open("/automation-practice-form");
+    //Actions
 
-        //return this - нужен для того, чтобы возвращать PageObject и мы могли снова ссылаясь на него вызывать нужный метод
-        return this;
-    }
-
-    public PracticeFormPages removeAds () {
-        executeJavaScript("$('footer').remove();");
-        executeJavaScript("$('#fixedban').remove();");
+    public PracticeFormPagesObject removeAds () {
+        executeJavaScript("""
+                document.getElementById('fixedban')?.remove();
+                document.querySelector('footer')?.remove();
+        """);
 
         return this;
     }
+    public PracticeFormPagesObject openPage () {
+        open("");
+        removeAds();
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
 
-    public PracticeFormPages setFirstName (String value) {
+        return this;
+    }
+
+    public PracticeFormPagesObject setFirstName (String value) {
         firstNameInput.setValue(value);
 
         return this;
     }
 
-    public PracticeFormPages setLastName (String value) {
+    public PracticeFormPagesObject setLastName (String value) {
         lastNameInput.setValue(value);
 
         return this;
     }
 
-    public PracticeFormPages setUserEmail (String value) {
+    public PracticeFormPagesObject setUserEmail (String value) {
         userEmailInput.setValue(value);
 
         return this;
     }
 
-    public PracticeFormPages setUserGender (String value) {
+    public PracticeFormPagesObject setUserGender (String value) {
         userGenderChoice.$(byText(value)).click();
 
         return this;
     }
 
-    public PracticeFormPages setUserNumber (String value) {
-        userNumberImput.setValue(value);
+    public PracticeFormPagesObject setUserNumber (String value) {
+        userNumberInput.setValue(value);
 
         return this;
     }
 
-    public PracticeFormPages setBirthDate (String day, String month, String year) {
+    public PracticeFormPagesObject setBirthDate (String day, String month, String year) {
         dateOfBirthInput.click();
         calendarComponents.setDate(day, month, year);
 
         return this;
     }
 
-    public PracticeFormPages setSubject (String value) {
+    public PracticeFormPagesObject setSubject (String value) {
         subjectChoice.setValue(value).pressEnter();
 
         return this;
     }
 
-    public PracticeFormPages setUserHobbies (String value) {
+    public PracticeFormPagesObject setUserHobbies (String value) {
         userHobbiesChoice.$(byText(value)).click();
 
         return this;
     }
 
-    public PracticeFormPages setUserAdress (String value) {
+    public PracticeFormPagesObject setUserAdress (String value) {
         adressInput.setValue(value);
 
         return this;
     }
 
-    public PracticeFormPages uploadUserPhoto (String value) {
+    public PracticeFormPagesObject uploadUserPhoto (String value) {
         userPhotoDownloader.uploadFromClasspath(value);
 
         return this;
     }
 
-    public PracticeFormPages selectState (String state) {
+    public PracticeFormPagesObject selectState (String state) {
         userState.click();
         userState.$(byText(state)).click();
 
         return this;
     }
 
-    public PracticeFormPages selectCity (String city) {
+    public PracticeFormPagesObject selectCity (String city) {
         userCity.click();
         userCity.$(byText(city)).click();
 
         return this;
     }
 
-    public PracticeFormPages submitForm () {
+    public PracticeFormPagesObject submitForm () {
         submit.click();
 
         return this;
     }
 
-    public PracticeFormPages verifyOpenedTable () {
+    public PracticeFormPagesObject verifyOpenedTable () {
         registrationResultModalComponents.verifyOpenedTable();
 
         return this;
     }
 
-    public PracticeFormPages verifyContentInTable (String key, String value) {
+    public PracticeFormPagesObject verifyContentInTable (String key, String value) {
         registrationResultModalComponents.verifyContentInTable(key, value);
 
         return this;
     }
 
-    public PracticeFormPages verifyResultNegativeOpenedTable () {
+    public PracticeFormPagesObject verifyResultNegativeOpenedTable () {
         registrationResultModalComponents.verifyNegativeOpenedTable();
 
         return this;
