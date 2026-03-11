@@ -1,6 +1,7 @@
 package tests.example.workWithFile;
 
 import com.codeborne.pdftest.PDF;
+import com.codeborne.xlstest.XLS;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -22,5 +23,17 @@ public class FileParsingTest {
         Assertions.assertTrue(pdf.text.contains("Тариф Банка ГПБ (АО) на выпуск и обслуживание расчетных банковских карт"));
 
         System.out.println();
+    }
+
+    @Test
+    void xlsFileParsingTest() throws Exception {
+        open("https://excelvba.ru/programmes/Teachers");
+        File downloaded = $("[href*='https://ExcelVBA.ru/sites/default/files/teachers.xls']").download();
+
+        XLS xls = new XLS(downloaded);
+        String actualValue = xls.excel.getSheetAt(0).getRow(4).getCell(2).getStringCellValue();
+
+        Assertions.assertTrue(actualValue.contains("Xnj"));
+        System.out.println("");
     }
 }
