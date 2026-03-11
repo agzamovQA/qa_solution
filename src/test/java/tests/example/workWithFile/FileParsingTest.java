@@ -2,15 +2,20 @@ package tests.example.workWithFile;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
+import com.opencsv.CSVReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class FileParsingTest {
+    private ClassLoader cl = FileParsingTest.class.getClassLoader();
 
     @Test
     void pdfFileParsingTest() throws Exception {
@@ -35,5 +40,24 @@ public class FileParsingTest {
 
         Assertions.assertTrue(actualValue.contains("Xnj"));
         System.out.println("");
+    }
+
+
+    @Test
+    void csvFileParsingTest() throws Exception {
+        try (InputStream is = cl.getResourceAsStream("example.csv");
+             CSVReader csvReader = new CSVReader(new InputStreamReader(is))) {
+
+            List<String[]> data = csvReader.readAll();
+            Assertions.assertEquals(2, data.size());
+            Assertions.assertArrayEquals(
+                    new String[] {"Selenide", "https://selenide.org"},
+                    data.get(0)
+            );
+            Assertions.assertArrayEquals(
+                    new String[] {"JUnit 5","https://junit.org"},
+                    data.get(1)
+            );
+        }
     }
 }
