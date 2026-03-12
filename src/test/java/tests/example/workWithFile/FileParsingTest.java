@@ -2,20 +2,27 @@ package tests.example.workWithFile;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tests.example.workWithFile.model.Glossary;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class FileParsingTest {
     private ClassLoader cl = FileParsingTest.class.getClassLoader();
+    private static final Gson gson = new Gson();
 
     @Test
     void pdfFileParsingTest() throws Exception {
@@ -58,6 +65,49 @@ public class FileParsingTest {
                     new String[] {"JUnit 5","https://junit.org"},
                     data.get(1)
             );
+        }
+    }
+
+    @Test
+    void zipFileParsingTest() throws Exception {
+        try (ZipInputStream zis = new ZipInputStream (
+                cl.getResourceAsStream("sample.zip"))) {
+            ZipEntry entry;
+
+            while ((entry = zis.getNextEntry()) != null) {
+                System.out.println(entry.getName());
+            }
+        }
+    }
+
+    @Test
+    void jsonFileParsingTest() throws Exception {
+        try (Reader reader = new InputStreamReader(
+                cl.getResourceAsStream("glossary.json")
+        )) {
+            JsonObject actual = gson.fromJson(reader, JsonObject.class);
+
+            Assertions.assertEquals("example glossary", actual.get("title").getAsString());
+            Assertions.assertEquals(234234, actual.get("ID").getAsInt());
+
+            JsonObject inner = actual.get("glossary").getAsJsonObject();
+
+            Assertions.assertEquals("SGML", inner.get("SortAs").getAsString());
+            Assertions.assertEquals("Standard Generalized Markup Language", inner.get("GlossTerm").getAsString());
+        }
+    }
+
+    @Test
+    void jsonFileParsingImprovedTest() throws Exception {
+        try (Reader reader = new InputStreamReader(
+                cl.getResourceAsStream("glossary.json")
+        )) {
+            Glossary actual = gson.fromJson(reader, Glossary.class);
+
+            Assertions.assertEquals("example glossary", actual.getTitle());
+            Assertions.assertEquals(234234, actual.getID());
+            Assertions.assertEquals("SGML", actual.getGlossary().getSortAs());
+            Assertions.assertEquals("Standard Generalized Markup Language", actual.getGlossary().getGlossTerm());
         }
     }
 }
