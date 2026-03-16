@@ -1,6 +1,20 @@
-// Указание языка разработки тестов
 plugins {
-    id 'java-library'
+    id 'java-library' // Указание языка разработки тестов
+    id 'io.qameta.allure' version "3.0.2" // Необходимо для подключения Аллюр отчета
+}
+
+allure {
+    report { // секция репорта
+        version.set("2.19.0")
+    }
+    adapter { // отвечает за появление директории build/allure-result
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 { // название фремворка (прим. junit 5, testNG)
+                adapterVersion.set("2.19.0") // версия интеграции фреймворка и Allure
+            }
+        }
+    }
 }
 
 // Репозитории откуда можно выкачивать нужные библиотеки, которые указали в Dependencies
@@ -10,13 +24,14 @@ repositories {
 
 // Указываем, какие библиотеки хотим использовать
 dependencies {
-    testImplementation "com.codeborne:selenide:7.0.1"
-    testImplementation "org.junit.jupiter:junit-jupiter:5.10.1"
-    testImplementation "com.github.javafaker:javafaker:1.0.2"
-    testImplementation "com.codeborne:pdf-test:1.5.0"
-    testImplementation "com.codeborne:xls-test:1.4.3"
-    testImplementation "com.opencsv:opencsv:5.12.0"
-    testImplementation "com.google.code.gson:gson:2.13.2"
+    testImplementation "com.codeborne:selenide:7.0.1" // для Селенида
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.1" // для JUnit 5
+    testImplementation "com.github.javafaker:javafaker:1.0.2" // для JavaFaker - рандомная генерация данных
+    testImplementation "com.codeborne:pdf-test:1.5.0" // Для работы с ПДФ
+    testImplementation "com.codeborne:xls-test:1.4.3" // Для работы с xls
+    testImplementation "com.opencsv:opencsv:5.12.0" // Для работы с CSV
+    testImplementation "com.google.code.gson:gson:2.13.2" // Для работы с JSON
+    testImplementation "io.qameta.allure:allure-selenide:2.19.0" // Интеграция Allure и Selenide
 }
 
 // Указываем, какую кодировку выбрать
