@@ -44,4 +44,16 @@ public class SimpleSelenideTestWithStep {
             $(withText("#" + ISSUE)).should(Condition.exist);
         });
     }
+
+    @Test
+    public void testAnnotatedStep() {
+        WebSteps steps = new WebSteps();
+
+        steps.openMainPage();
+        steps.searchForRepository(REPOSITORY);
+        steps.clickOnRepositoryLink(REPOSITORY);
+        steps.openIssueTab();
+        steps.shouldSeeIssueWithNumber(ISSUE);
+
+    }
 }
