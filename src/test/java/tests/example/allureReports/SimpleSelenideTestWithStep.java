@@ -2,7 +2,6 @@ package tests.example.allureReports;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ import static io.qameta.allure.Allure.step;
 import static org.openqa.selenium.By.linkText;
 
 
-public class simpleSelenideTestWithStep {
+public class SimpleSelenideTestWithStep {
 
     private static final String REPOSITORY = "eroshenkoam/allure-example";
     private static final int ISSUE = 80;
