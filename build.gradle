@@ -23,15 +23,31 @@ repositories {
 }
 
 // Указываем, какие библиотеки хотим использовать
+//dependencies {
+//    testImplementation "com.codeborne:selenide:7.0.1" // для Селенида
+//    testImplementation "org.junit.jupiter:junit-jupiter:5.10.1" // для JUnit 5
+//    testImplementation "com.github.javafaker:javafaker:1.0.2" // для JavaFaker - рандомная генерация данных
+//    testImplementation "com.codeborne:pdf-test:2.1.0" // Для работы с ПДФ
+//    testImplementation "com.codeborne:xls-test:1.7.2" // Для работы с xls
+//    testImplementation "com.opencsv:opencsv:5.12.0" // Для работы с CSV
+//    testImplementation "com.google.code.gson:gson:2.13.2" // Для работы с JSON
+//    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1' // Для работы с JSON от гугла
+//    testImplementation 'org.apache.poi:poi:5.2.3'
+//    testImplementation "io.qameta.allure:allure-selenide:2.19.0" // Интеграция Allure и Selenide
+//}
+
 dependencies {
-    testImplementation "com.codeborne:selenide:7.0.1" // для Селенида
-    testImplementation "org.junit.jupiter:junit-jupiter:5.10.1" // для JUnit 5
-    testImplementation "com.github.javafaker:javafaker:1.0.2" // для JavaFaker - рандомная генерация данных
-    testImplementation "com.codeborne:pdf-test:1.5.0" // Для работы с ПДФ
-    testImplementation "com.codeborne:xls-test:1.4.3" // Для работы с xls
-    testImplementation "com.opencsv:opencsv:5.12.0" // Для работы с CSV
-    testImplementation "com.google.code.gson:gson:2.13.2" // Для работы с JSON
-    testImplementation "io.qameta.allure:allure-selenide:2.19.0" // Интеграция Allure и Selenide
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'com.codeborne:selenide:7.9.4'
+    testImplementation "com.github.javafaker:javafaker:1.0.2"
+    testImplementation 'com.codeborne:pdf-test:2.1.0'
+    testImplementation 'com.codeborne:xls-test:1.7.2'
+    testImplementation 'org.apache.poi:poi:5.2.3'
+    testImplementation 'com.opencsv:opencsv:5.10'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    testImplementation "io.qameta.allure:allure-selenide:2.19.0"
+    testImplementation "com.google.code.gson:gson:2.13.2"
 }
 
 // Указываем, какую кодировку выбрать
